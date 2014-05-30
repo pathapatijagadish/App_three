@@ -1,0 +1,39 @@
+<%= nested_form_for(@flyer) do |f| %>
+  <% if @flyer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@flyer.errors.count, "error") %> prohibited this flyer from being saved:</h2>
+
+      <ul>
+      <% @flyer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+ 
+  <%= f.fields_for :questions do |q| %>
+    <%= q.label :subject, :class => 'control-label' %>
+    <%= q.text_field :subject, :class => 'text_field'%><br>
+    <%= q.label :content, :class => 'control-label' %>
+    <%= q.text_area :content, :class => 'text_field',:rows=>3 %>
+    <%= q.link_to_remove "Remove this question" %>
+  <% end %>
+  <p><%= f.link_to_add "Add a question", :questions %></p>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+   
+
